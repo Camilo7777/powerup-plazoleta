@@ -1,0 +1,17 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name : restaurant-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/plazoleta
+    username: root
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+appDescription: "Pragma Powerup Plazoleta"
+appVersion: "1.0.0"

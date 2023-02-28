@@ -1,13 +1,18 @@
 package com.pragma.powerup.infrastructure.input.rest;
 
 import com.pragma.powerup.application.dto.request.DishResquestDto;
+import com.pragma.powerup.application.dto.request.UserRequestDto;
+import com.pragma.powerup.application.dto.response.DishResponseDto;
 import com.pragma.powerup.application.handler.IDishHandler;
 import com.pragma.powerup.infrastructure.resttemplate.RestTemplateRestaurant;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/dish")
@@ -41,4 +46,10 @@ public class DishRestController {
         dishHandler.enableDisableDish(dishId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @Operation(summary = "list dishes from each restaurant")
+    @GetMapping("/{id}")
+    public ResponseEntity<List<DishResponseDto>> getByIdRestaurant(@Parameter(name = "Id tipo Long") @PathVariable Long id) {
+        return ResponseEntity.ok(dishHandler.findByRestaurantId(id));
+    }
+
 }

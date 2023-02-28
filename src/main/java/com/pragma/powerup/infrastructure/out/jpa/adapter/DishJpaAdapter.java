@@ -11,14 +11,13 @@ import com.pragma.powerup.infrastructure.out.jpa.repository.IRestaurantRepositor
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DishJpaAdapter implements IDishPersistencePort {
     private final IDishRepository dishRepository;
     private final IDishEntityMapper dishEntityMapper;
-
-
     @Autowired
     private IRestaurantRepository restaurantRepository;
 
@@ -27,7 +26,6 @@ public class DishJpaAdapter implements IDishPersistencePort {
     public void saveDish(DishModel dishModel) {
         Optional<RestaurantEntity> restaurantModel = restaurantRepository.findById(dishModel.getRestaurantId());
         if (restaurantModel.isPresent()) {
-
             dishRepository.save(dishEntityMapper.toEntity(dishModel));
         } else {
             throw new WrongDataException();
@@ -47,6 +45,15 @@ public class DishJpaAdapter implements IDishPersistencePort {
     public void enableDisableDish(Long dishId) {
         Optional<DishEntity> dishEntity = dishRepository.findById(dishId);
         dishEntity.ifPresent(entity -> entity.setActive(!entity.getActive()));
+    }
+
+    @Override
+    public List<DishModel> findByRestaurantId(Long id) {
+        List<DishEntity> dishEntityList = dishRepository.findByRestaurantId(id);
+        if (dishEntityList.size()> 0 ){
+            return dishEntityMapper.tolistModel(dishEntityList);
+        }
+        throw new WrongDataException();
     }
 
 }

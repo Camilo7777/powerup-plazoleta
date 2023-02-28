@@ -5,12 +5,11 @@ import com.pragma.powerup.domain.exception.WrongDataException;
 import com.pragma.powerup.domain.model.DishModel;
 import com.pragma.powerup.domain.spi.IDishPersistencePort;
 
+import java.util.List;
 
 public class DishUseCase implements IDishServicePort {
 
     private final IDishPersistencePort persistencePort;
-
-
 
     public DishUseCase(IDishPersistencePort persistencePort) {
 
@@ -39,6 +38,11 @@ public class DishUseCase implements IDishServicePort {
     @Override
     public void enableDisableDish(Long dishId) {
         persistencePort.enableDisableDish(dishId);
+    }
+
+    @Override
+    public List<DishModel> findByRestaurantId(Long id) {
+        return persistencePort.findByRestaurantId(id);
     }
 
     private void priceVerify(Integer price) {

@@ -1,16 +1,20 @@
 package com.pragma.powerup.application.handler.impl;
 
 import com.pragma.powerup.application.dto.request.RestaurantResquestDto;
+import com.pragma.powerup.application.dto.response.RestaurantResponseDto;
 import com.pragma.powerup.application.mapper.IRestaurantRequestMapper;
 import com.pragma.powerup.application.mapper.IRestaurantResponseMapper;
 import com.pragma.powerup.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.domain.model.RestaurantModel;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,7 +40,7 @@ class RestaurantHandlerTest {
                         .idUser(1L)
                         .url("werty")
                         .nit("234567")
-                        .id(2L)
+                        .idRestaurant(2L)
                         .phone("234567")
                         .address("wertyhewj")
                         .name("dihdihwqd")
@@ -61,7 +65,30 @@ class RestaurantHandlerTest {
                 .saveRestaurant(any());
 
 
+    }
 
+    @Test
+    void getAllRestaurants() {
+
+        RestaurantResponseDto restaurantResponseDtoMock =
+                RestaurantResponseDto.builder()
+                        .name("donde marta")
+                        .url("2dewp´ñldw")
+                        .build();
+
+        RestaurantModel restaurantModelMock =
+                new RestaurantModel(2L,"pepe","4567","gdgugd"
+                        ,"yd8ud","345678",2L);
+
+        Mockito.when(responseMapperMock.toResponseList(any()))
+                .thenReturn(List.of(restaurantResponseDtoMock));
+
+        Mockito.when(servicePortMock.getAllRestaurants())
+                .thenReturn(List.of(restaurantModelMock));
+
+        var restaurantList = restaurantHandlerMock.getAllRestaurants();
+
+        Assertions.assertEquals("donde marta",restaurantList.get(0).getName());
 
 
     }

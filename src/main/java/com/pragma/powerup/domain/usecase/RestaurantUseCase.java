@@ -4,6 +4,7 @@ import com.pragma.powerup.domain.api.IRestaurantServicePort;
 import com.pragma.powerup.domain.exception.WrongDataException;
 import com.pragma.powerup.domain.model.RestaurantModel;
 import com.pragma.powerup.domain.spi.IRestaurantPersistencePort;
+import com.pragma.powerup.infrastructure.exception.NoDataFoundException;
 
 import java.util.List;
 
@@ -26,7 +27,11 @@ public class RestaurantUseCase implements IRestaurantServicePort {
 
     @Override
     public List<RestaurantModel> getAllRestaurants() {
-        return restaurantPersistencePort.getAllRestaurants();
+        List<RestaurantModel> restaurantModelList = restaurantPersistencePort.getAllRestaurants();
+        if (restaurantModelList.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+        return restaurantModelList;
     }
 
     private void nitVerify(String nit) {

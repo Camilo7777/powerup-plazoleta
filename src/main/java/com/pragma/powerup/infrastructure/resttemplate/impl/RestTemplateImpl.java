@@ -1,7 +1,6 @@
 package com.pragma.powerup.infrastructure.resttemplate.impl;
 
 import com.pragma.powerup.application.dto.request.UserRequestDto;
-import com.pragma.powerup.application.dto.response.RestaurantResponseDto;
 import com.pragma.powerup.application.handler.IRestaurantHandler;
 import com.pragma.powerup.domain.exception.WrongDataException;
 import com.pragma.powerup.infrastructure.resttemplate.RestTemplateRestaurant;
@@ -33,7 +32,7 @@ public class RestTemplateImpl implements RestTemplateRestaurant {
 
         if (userRequesDto != null) {
             if (userRequesDto.getId().equals(idUser)){
-                id = userRequesDto.getIdRol();
+                id = userRequesDto.getRoleId();
             }else{
                 throw new WrongDataException();
             }
@@ -49,7 +48,7 @@ public class RestTemplateImpl implements RestTemplateRestaurant {
         Long id=0L;
         if (userRequesDto != null) {
             if (userRequesDto.getId().equals(idUser)){
-                id = userRequesDto.getIdRol();
+                id = userRequesDto.getRoleId();
             }
         }
         if (id != 2){
@@ -59,6 +58,7 @@ public class RestTemplateImpl implements RestTemplateRestaurant {
 
     @Override
     public void userOwnerAuthorizedDish(Long idRestaurant) {
+        /*
         RestaurantResponseDto restaurantResponseDto = restaurantHandler.getAllRestaurants().stream()
                 .filter(x ->x.getIdRestaurant().equals(idRestaurant))
                 .findFirst().orElseThrow();
@@ -68,6 +68,8 @@ public class RestTemplateImpl implements RestTemplateRestaurant {
         }else{
             throw new WrongDataException();
         }
+
+         */
 
 
     }

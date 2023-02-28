@@ -12,6 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -84,5 +87,34 @@ class RestaurantUseCaseTest {
 
         Assertions.assertThrows(NoDataFoundException.class,
                 () -> restaurantUseCaseMock.saveRestaurant(restaurantModelMock));
+    }
+
+    @Test
+    void getAllRestaurants() {
+        RestaurantModel restaurantModelMock = new RestaurantModel(1L
+                ,"fffutf"
+                ,"1231234t"
+                ,"sdfgn"
+                ,"sdfgh"
+                ,"123456"
+                ,2L);
+
+        Mockito.when(restaurantPersistencePortMock.getAllRestaurants())
+                .thenReturn(List.of(restaurantModelMock));
+
+        var restaurant = restaurantUseCaseMock.getAllRestaurants();
+
+        Assertions.assertEquals(1L,restaurant.get(0).getIdRestaurant());
+    }
+
+
+    @Test
+    void getAllRestaurantsIsEmpty() {
+
+        Mockito.when(restaurantPersistencePortMock.getAllRestaurants())
+                .thenReturn(Collections.emptyList());
+
+        Assertions.assertThrows(NoDataFoundException.class,
+                () -> restaurantUseCaseMock.getAllRestaurants());
     }
 }

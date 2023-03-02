@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -46,8 +48,6 @@ class DishUseCaseTest {
 
         Assertions.assertThrows(WrongDataException.class,
                 () -> dishUseCaseMock.saveDish(dishModelMock));
-
-
 
     }
 
@@ -88,4 +88,19 @@ class DishUseCaseTest {
                 .enableDisableDish(any());
     }
 
+    @Test
+    void findByRestaurantId() {
+        DishModel dishModelMock = new DishModel(
+                1L,"pez",3000,"bueno",
+                "dddff",2L,true,2L);
+        Mockito.when(persistencePortMock.findByRestaurantId(anyLong(),any()))
+                .thenReturn(List.of(dishModelMock));
+
+
+
+        List<DishModel> dishModelList = dishUseCaseMock.findByRestaurantId(anyLong(),any());
+
+
+        Assertions.assertEquals(1L,dishModelList.get(0).getId());
+    }
 }

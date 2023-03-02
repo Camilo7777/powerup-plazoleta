@@ -25,6 +25,9 @@ public class RegisterUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserRequestDto userRequestDto = userFeignClient.getByEmail(username);
+        if (userRequestDto == null) {
+            throw new UsernameNotFoundException("Username Not Found");
+        }
         String rol;
         if (userRequestDto.getRoleId() == 1){
             rol = "ADMIN";
@@ -35,13 +38,8 @@ public class RegisterUserDetailsService implements UserDetailsService {
         }else{
             rol = "CLIENT";
         }
-        if (userRequestDto == null) {
-            throw new UsernameNotFoundException("Username Not Found");
-        }
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(rol));
             return new User(userRequestDto.getEmail(), userRequestDto.getPassword(), authorities);
     }
-
-
 }

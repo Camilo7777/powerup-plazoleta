@@ -28,12 +28,11 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().authorizeRequests().antMatchers("/**/authenticate","/restaurant").permitAll()
+        http.csrf().disable().authorizeRequests().antMatchers("/**/authenticate").permitAll()
                 .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/saveRestaurant").hasAnyAuthority("ADMIN")
-                .antMatchers("/dish/saveDish").hasAnyAuthority("OWNER")
-                .antMatchers("/dish/updateDish").hasAnyAuthority("OWNER")
+                .antMatchers("/restaurant/saveRestaurant").hasAnyAuthority("ADMIN")
+                .antMatchers("/dish/**").hasAnyAuthority("OWNER")
                 .antMatchers("/restaurant/getAll/pages/**").hasAnyAuthority("CLIENT")
                 .anyRequest().authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

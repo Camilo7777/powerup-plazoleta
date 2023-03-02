@@ -1,14 +1,15 @@
 package com.pragma.powerup.application.dto.response;
 
-import com.pragma.powerup.domain.model.RestaurantModel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 public class DishResponseDto {
 
-    private String id;
+    private Long id;
 
     private String name;
 

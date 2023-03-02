@@ -9,11 +9,8 @@ import com.pragma.powerup.infrastructure.out.jpa.mapper.IDishEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.repository.IDishRepository;
 import com.pragma.powerup.infrastructure.out.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-
 import java.util.List;
 
 import java.util.Optional;
@@ -23,13 +20,12 @@ public class DishJpaAdapter implements IDishPersistencePort {
     private final IDishRepository dishRepository;
     private final IDishEntityMapper dishEntityMapper;
 
-    @Autowired
-    private IRestaurantRepository restaurantRepository;
+    private final  IRestaurantRepository restaurantRepository;
 
     @Override
     public void saveDish(DishModel dishModel) {
-        Optional<RestaurantEntity> restaurantModel = restaurantRepository.findById(dishModel.getRestaurantId());
-        if (restaurantModel.isPresent()) {
+        Optional<RestaurantEntity> restaurantEntity= restaurantRepository.findById(dishModel.getRestaurantId());
+        if (restaurantEntity.isPresent()) {
             dishRepository.save(dishEntityMapper.toEntity(dishModel));
         } else {
             throw new WrongDataException();
@@ -46,7 +42,11 @@ public class DishJpaAdapter implements IDishPersistencePort {
     @Override
     public void enableDisableDish(Long dishId) {
         Optional<DishEntity> dishEntity = dishRepository.findById(dishId);
-        dishEntity.ifPresent(entity -> entity.setActive(!entity.getActive()));
+        if (dishEntity.isPresent()){
+            dishEntity.get().setActive(!dishEntity.get().getActive());
+        }else{
+            throw new WrongDataException();
+        }
     }
 
     @Override

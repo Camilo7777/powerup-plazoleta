@@ -29,7 +29,7 @@ public class DishRestController {
     @Operation(summary = "Save a plate by verifying that its id has the role of owner")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Dish  created", content = @Content)})
-    @PostMapping("/Dish")
+    @PostMapping("/dish")
     public ResponseEntity<Void> saveDish(@RequestBody DishResquestDto dishResquestDto) {
         // restTemplateRestaurant.userOwnerAuthorizedDish(dishResquestDto.getId());
         dishHandler.saveDish(dishResquestDto);
@@ -37,7 +37,7 @@ public class DishRestController {
     }
 
     @Operation(summary = "Update a plate according to its id")
-    @PutMapping("/Dish")
+    @PutMapping("/dish")
     public ResponseEntity<Void> updateDish(@RequestBody DishResquestDto dishResquestDto) {
         // restTemplateRestaurant.userOwnerAuthorizedDish(dishResquestDto.getId());
         dishHandler.updateDish(dishResquestDto);

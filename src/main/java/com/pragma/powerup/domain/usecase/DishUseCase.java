@@ -37,6 +37,7 @@ public class DishUseCase implements IDishServicePort {
 
     @Override
     public void enableDisableDish(Long dishId) {
+
         persistencePort.enableDisableDish(dishId);
     }
 
@@ -44,9 +45,6 @@ public class DishUseCase implements IDishServicePort {
     public List<DishModel> findByRestaurantId(Long id,Integer pages) {
         List<DishModel> dishModelList  = persistencePort.findByRestaurantId(id,pages);
         return  dishModelList.stream().sorted(Comparator.comparing(DishModel::getIdCategory)).collect(toList());
-        //Map<Long, List<DishModel>> filteredRestaurants = dishModelList.stream().collect(groupingBy(DishModel::getIdCategory, toList()));
-        //List<List<DishModel>> filteredRestaurants2 = filteredRestaurants.values().stream().collect(Collectors.toList());
-        //return filteredRestaurants2.stream();
     }
     private void priceVerify(Integer price) {
         if (price <= 0) {

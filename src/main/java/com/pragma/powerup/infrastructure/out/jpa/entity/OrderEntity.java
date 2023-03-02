@@ -23,7 +23,7 @@ public class OrderEntity {
     @Column(name = "id_client")
     private Long idClient;
     private Date date;
-    private Boolean status;
+    private String status;
     @Column(name = "id_chef")
     private Long idChef;
     @Column(name = "id_restaurant")

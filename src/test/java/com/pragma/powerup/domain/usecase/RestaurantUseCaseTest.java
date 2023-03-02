@@ -1,5 +1,6 @@
 package com.pragma.powerup.domain.usecase;
 
+import com.pragma.powerup.domain.exception.WrongDataException;
 import com.pragma.powerup.domain.model.RestaurantModel;
 import com.pragma.powerup.domain.spi.IRestaurantPersistencePort;
 import com.pragma.powerup.infrastructure.exception.NoDataFoundException;
@@ -53,7 +54,7 @@ class RestaurantUseCaseTest {
                 ,2L);
 
 
-        Assertions.assertThrows(NoDataFoundException.class,
+        Assertions.assertThrows(WrongDataException.class,
                 () -> restaurantUseCaseMock.saveRestaurant(restaurantModelMock));
     }
 
@@ -69,7 +70,7 @@ class RestaurantUseCaseTest {
                 ,2L);
 
 
-        Assertions.assertThrows(NoDataFoundException.class,
+        Assertions.assertThrows(WrongDataException.class,
                 () -> restaurantUseCaseMock.saveRestaurant(restaurantModelMock));
     }
 
@@ -85,7 +86,7 @@ class RestaurantUseCaseTest {
                 ,2L);
 
 
-        Assertions.assertThrows(NoDataFoundException.class,
+        Assertions.assertThrows(WrongDataException.class,
                 () -> restaurantUseCaseMock.saveRestaurant(restaurantModelMock));
     }
 

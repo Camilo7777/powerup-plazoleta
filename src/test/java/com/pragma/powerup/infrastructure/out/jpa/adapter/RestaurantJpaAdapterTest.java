@@ -10,6 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,11 +46,15 @@ class RestaurantJpaAdapterTest {
 
     @Test
     void getAllRestaurants() {
+
+        Pageable sortedByName =
+                PageRequest.of(0,  any(), Sort.by("name"));
+
         RestaurantModel restaurantModel = new RestaurantModel(1L,"pepe","1234","ddfef","34dff"
                 ,"2345",2L);
 
 
-        Mockito.when(restaurantRepositoryMock.findAll())
+        Mockito.when(restaurantRepositoryMock.findAll(sortedByName).toList())
                 .thenReturn(List.of(new RestaurantEntity(1L,"pepe","1234","ddfef","34dff"
                         ,"2345",2L)));
 

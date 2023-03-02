@@ -20,7 +20,7 @@ public class OrderResponseDto {
 
     private Long idClient;
     private Date date;
-    private Boolean status;
+    private String status;
 
     private Long idChef;
 

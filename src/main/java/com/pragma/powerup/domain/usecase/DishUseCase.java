@@ -5,14 +5,14 @@ import com.pragma.powerup.domain.exception.WrongDataException;
 import com.pragma.powerup.domain.model.DishModel;
 import com.pragma.powerup.domain.spi.IDishPersistencePort;
 
-import java.util.List;
+import java.util.*;
+
+import static java.util.stream.Collectors.*;
 
 public class DishUseCase implements IDishServicePort {
-
     private final IDishPersistencePort persistencePort;
 
     public DishUseCase(IDishPersistencePort persistencePort) {
-
         this.persistencePort = persistencePort;
     }
 
@@ -41,10 +41,13 @@ public class DishUseCase implements IDishServicePort {
     }
 
     @Override
-    public List<DishModel> findByRestaurantId(Long id) {
-        return persistencePort.findByRestaurantId(id);
+    public List<DishModel> findByRestaurantId(Long id,Integer pages) {
+        List<DishModel> dishModelList  = persistencePort.findByRestaurantId(id,pages);
+        return  dishModelList.stream().sorted(Comparator.comparing(DishModel::getIdCategory)).collect(toList());
+        //Map<Long, List<DishModel>> filteredRestaurants = dishModelList.stream().collect(groupingBy(DishModel::getIdCategory, toList()));
+        //List<List<DishModel>> filteredRestaurants2 = filteredRestaurants.values().stream().collect(Collectors.toList());
+        //return filteredRestaurants2.stream();
     }
-
     private void priceVerify(Integer price) {
         if (price <= 0) {
             throw new WrongDataException();

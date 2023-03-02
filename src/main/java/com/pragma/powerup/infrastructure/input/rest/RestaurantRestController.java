@@ -33,9 +33,9 @@ public class RestaurantRestController {
     }
 
     @Operation(summary = "Get a list of restaurants")
-    @GetMapping("/getAll")
-    public ResponseEntity<List<RestaurantResponseDto>> getAllRestaurants() {
-        return ResponseEntity.ok(restaurantHandler.getAllRestaurants());
+    @GetMapping("/getAll/pages/{pages}")
+    public ResponseEntity<List<RestaurantResponseDto>> getAllRestaurants(@PathVariable Integer pages) {
+        return ResponseEntity.ok(restaurantHandler.getAllRestaurants(pages));
     }
 
     @GetMapping("/prueba/{id}")

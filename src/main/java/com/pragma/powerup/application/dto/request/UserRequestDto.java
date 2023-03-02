@@ -7,7 +7,6 @@ import lombok.Setter;
 @Setter
 public class UserRequestDto {
     private Long id;
-
     private String documentNumber;
     private String fistName;
     private String lastName;

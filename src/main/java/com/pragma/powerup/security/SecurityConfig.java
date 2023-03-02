@@ -34,6 +34,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .antMatchers("/saveRestaurant").hasAnyAuthority("ADMIN")
                 .antMatchers("/dish/saveDish").hasAnyAuthority("OWNER")
                 .antMatchers("/dish/updateDish").hasAnyAuthority("OWNER")
+                .antMatchers("/restaurant/getAll/pages/**").hasAnyAuthority("CLIENT")
                 .anyRequest().authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtFilterRequest, UsernamePasswordAuthenticationFilter.class);

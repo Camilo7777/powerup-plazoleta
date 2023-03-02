@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -35,5 +36,9 @@ public class DishEntity {
 
     @Column(name = "restaurant_id")
     private Long restaurantId;
+
+    @OneToMany(fetch =FetchType.LAZY,mappedBy = "dishEntity",cascade = CascadeType.ALL)
+    private List<OrderDishEntity> orderDishEntities;
+
 
 }

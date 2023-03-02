@@ -7,6 +7,9 @@ import com.pragma.powerup.application.handler.IDishHandler;
 import com.pragma.powerup.infrastructure.resttemplate.RestTemplateRestaurant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +27,9 @@ public class DishRestController {
     private final RestTemplateRestaurant restTemplateRestaurant;
 
     @Operation(summary = "Save a plate by verifying that its id has the role of owner")
-    @PostMapping("/saveDish")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Dish  created", content = @Content)})
+    @PostMapping("/Dish")
     public ResponseEntity<Void> saveDish(@RequestBody DishResquestDto dishResquestDto) {
         // restTemplateRestaurant.userOwnerAuthorizedDish(dishResquestDto.getId());
         dishHandler.saveDish(dishResquestDto);
@@ -32,7 +37,7 @@ public class DishRestController {
     }
 
     @Operation(summary = "Update a plate according to its id")
-    @PutMapping("/updateDish")
+    @PutMapping("/Dish")
     public ResponseEntity<Void> updateDish(@RequestBody DishResquestDto dishResquestDto) {
         // restTemplateRestaurant.userOwnerAuthorizedDish(dishResquestDto.getId());
         dishHandler.updateDish(dishResquestDto);
@@ -47,9 +52,9 @@ public class DishRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @Operation(summary = "list dishes from each restaurant")
-    @GetMapping("/{id}")
-    public ResponseEntity<List<DishResponseDto>> getByIdRestaurant(@Parameter(name = "Id tipo Long") @PathVariable Long id) {
-        return ResponseEntity.ok(dishHandler.findByRestaurantId(id));
+    @GetMapping("/{id}/pages/{pages}")
+    public ResponseEntity<List<DishResponseDto>> getByIdRestaurant(@Parameter(name = "Id tipo Long") @PathVariable Long id,@PathVariable Integer pages) {
+        return ResponseEntity.ok(dishHandler.findByRestaurantId(id,pages));
     }
 
 }

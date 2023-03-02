@@ -17,5 +17,5 @@ public interface IDishHandler {
 
     void enableDisableDish(Long dishId);
 
-    List<DishResponseDto> findByRestaurantId(Long id);
+    List<DishResponseDto> findByRestaurantId(Long id,Integer pages);
 }

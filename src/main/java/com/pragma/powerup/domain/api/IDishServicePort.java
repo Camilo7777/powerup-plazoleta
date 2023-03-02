@@ -1,9 +1,9 @@
 package com.pragma.powerup.domain.api;
 
-import com.pragma.powerup.application.dto.response.DishResponseDto;
 import com.pragma.powerup.domain.model.DishModel;
 
 import java.util.List;
+import java.util.Map;
 
 public interface IDishServicePort {
     void saveDish(DishModel dishModel);
@@ -13,5 +13,6 @@ public interface IDishServicePort {
 
     void enableDisableDish(Long dishId);
 
-    List<DishModel> findByRestaurantId(Long id);
+    List<DishModel> findByRestaurantId(Long id,Integer pages);
+
 }

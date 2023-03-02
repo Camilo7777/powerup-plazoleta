@@ -10,5 +10,5 @@ public interface IRestaurantHandler {
 
     void saveRestaurant(RestaurantResquestDto restaurantResquestDto);
 
-    List<RestaurantResponseDto> getAllRestaurants();
+    List<RestaurantResponseDto> getAllRestaurants(Integer pages);
 }

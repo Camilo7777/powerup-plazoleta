@@ -10,17 +10,21 @@ import com.pragma.powerup.infrastructure.out.jpa.repository.IDishRepository;
 import com.pragma.powerup.infrastructure.out.jpa.repository.IRestaurantRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
+
 import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DishJpaAdapter implements IDishPersistencePort {
     private final IDishRepository dishRepository;
     private final IDishEntityMapper dishEntityMapper;
+
     @Autowired
     private IRestaurantRepository restaurantRepository;
-
 
     @Override
     public void saveDish(DishModel dishModel) {
@@ -31,7 +35,6 @@ public class DishJpaAdapter implements IDishPersistencePort {
             throw new WrongDataException();
         }
     }
-
     @Override
     public DishModel findById(Long id) {
         Optional<DishEntity> dishEntity = dishRepository.findById(id);
@@ -40,7 +43,6 @@ public class DishJpaAdapter implements IDishPersistencePort {
         }
         throw new WrongDataException();
     }
-
     @Override
     public void enableDisableDish(Long dishId) {
         Optional<DishEntity> dishEntity = dishRepository.findById(dishId);
@@ -48,12 +50,15 @@ public class DishJpaAdapter implements IDishPersistencePort {
     }
 
     @Override
-    public List<DishModel> findByRestaurantId(Long id) {
-        List<DishEntity> dishEntityList = dishRepository.findByRestaurantId(id);
-        if (dishEntityList.size()> 0 ){
+    public List<DishModel> findByRestaurantId(Long id,Integer pages) {
+        Pageable sortedByName =
+                PageRequest.of(0,  pages);
+        List<DishEntity> dishEntityList = dishRepository.findByRestaurantId(id,sortedByName);
+        if (!dishEntityList.isEmpty() ){
             return dishEntityMapper.tolistModel(dishEntityList);
         }
         throw new WrongDataException();
     }
+
 
 }

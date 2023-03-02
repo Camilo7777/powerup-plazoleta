@@ -83,10 +83,10 @@ class RestaurantHandlerTest {
         Mockito.when(responseMapperMock.toResponseList(any()))
                 .thenReturn(List.of(restaurantResponseDtoMock));
 
-        Mockito.when(servicePortMock.getAllRestaurants())
+        Mockito.when(servicePortMock.getAllRestaurants(any()))
                 .thenReturn(List.of(restaurantModelMock));
 
-        var restaurantList = restaurantHandlerMock.getAllRestaurants();
+        var restaurantList = restaurantHandlerMock.getAllRestaurants(any());
 
         Assertions.assertEquals("donde marta",restaurantList.get(0).getName());
 

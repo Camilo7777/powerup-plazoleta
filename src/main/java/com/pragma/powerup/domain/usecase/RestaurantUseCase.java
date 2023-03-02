@@ -16,7 +16,6 @@ public class RestaurantUseCase implements IRestaurantServicePort {
     public RestaurantUseCase(IRestaurantPersistencePort restaurantPersistencePort) {
         this.restaurantPersistencePort = restaurantPersistencePort;
     }
-
     @Override
     public void saveRestaurant(RestaurantModel restaurantModel) {
         nitVerify(restaurantModel.getNit());
@@ -26,8 +25,8 @@ public class RestaurantUseCase implements IRestaurantServicePort {
     }
 
     @Override
-    public List<RestaurantModel> getAllRestaurants() {
-        List<RestaurantModel> restaurantModelList = restaurantPersistencePort.getAllRestaurants();
+    public List<RestaurantModel> getAllRestaurants(Integer pages) {
+        List<RestaurantModel> restaurantModelList = restaurantPersistencePort.getAllRestaurants(pages);
         if (restaurantModelList.isEmpty()) {
             throw new NoDataFoundException();
         }

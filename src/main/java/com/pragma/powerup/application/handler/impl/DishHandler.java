@@ -51,8 +51,8 @@ public class DishHandler implements IDishHandler {
         servicePort.enableDisableDish(dishId);
     }
     @Override
-    public List<DishResponseDto> findByRestaurantId(Long id) {
-        List<DishModel> dishModelList = servicePort.findByRestaurantId(id);
+    public List<DishResponseDto> findByRestaurantId(Long id,Integer pages) {
+        List<DishModel> dishModelList = servicePort.findByRestaurantId(id,pages);
         return dishResponseMapper.toResponseList(dishModelList);
     }
 }

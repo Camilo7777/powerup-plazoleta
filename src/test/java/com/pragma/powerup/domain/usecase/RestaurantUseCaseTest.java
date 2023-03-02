@@ -99,10 +99,10 @@ class RestaurantUseCaseTest {
                 ,"123456"
                 ,2L);
 
-        Mockito.when(restaurantPersistencePortMock.getAllRestaurants())
+        Mockito.when(restaurantPersistencePortMock.getAllRestaurants(any()))
                 .thenReturn(List.of(restaurantModelMock));
 
-        var restaurant = restaurantUseCaseMock.getAllRestaurants();
+        var restaurant = restaurantUseCaseMock.getAllRestaurants(any());
 
         Assertions.assertEquals(1L,restaurant.get(0).getIdRestaurant());
     }
@@ -111,10 +111,10 @@ class RestaurantUseCaseTest {
     @Test
     void getAllRestaurantsIsEmpty() {
 
-        Mockito.when(restaurantPersistencePortMock.getAllRestaurants())
+        Mockito.when(restaurantPersistencePortMock.getAllRestaurants(any()))
                 .thenReturn(Collections.emptyList());
 
         Assertions.assertThrows(NoDataFoundException.class,
-                () -> restaurantUseCaseMock.getAllRestaurants());
+                () -> restaurantUseCaseMock.getAllRestaurants(any()));
     }
 }

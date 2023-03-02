@@ -29,7 +29,7 @@ public class RestaurantHandler implements IRestaurantHandler {
         servicePort.saveRestaurant(restaurantModel);
     }
     @Override
-    public List<RestaurantResponseDto> getAllRestaurants() {
-        return responseMapper.toResponseList(servicePort.getAllRestaurants());
+    public List<RestaurantResponseDto> getAllRestaurants(Integer pages) {
+        return responseMapper.toResponseList(servicePort.getAllRestaurants(pages));
     }
 }

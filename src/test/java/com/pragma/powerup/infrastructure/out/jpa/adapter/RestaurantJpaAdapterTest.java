@@ -11,13 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.w3c.dom.stylesheets.LinkStyle;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(SpringExtension.class)
@@ -60,7 +54,7 @@ class RestaurantJpaAdapterTest {
         Mockito.when(restaurantEntityMapperMock.toRestaurantModelList(any()))
                 .thenReturn(List.of(restaurantModel));
 
-        var restaurant = restaurantJpaAdapterMock.getAllRestaurants();
+        var restaurant = restaurantJpaAdapterMock.getAllRestaurants(any());
 
         Assertions.assertEquals(1L,restaurant.get(0).getIdRestaurant());
     }

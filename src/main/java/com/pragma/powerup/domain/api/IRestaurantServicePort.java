@@ -5,9 +5,7 @@ import com.pragma.powerup.domain.model.RestaurantModel;
 import java.util.List;
 
 public interface IRestaurantServicePort {
-
     void saveRestaurant(RestaurantModel restaurantModel);
-
-    List<RestaurantModel> getAllRestaurants();
+    List<RestaurantModel> getAllRestaurants(Integer pages);
 
 }

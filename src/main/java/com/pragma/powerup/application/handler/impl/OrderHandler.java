@@ -1,23 +1,14 @@
 package com.pragma.powerup.application.handler.impl;
 
-import com.pragma.powerup.application.dto.request.DishResquestDto;
 import com.pragma.powerup.application.dto.request.OrderRequestDto;
-import com.pragma.powerup.application.dto.response.DishResponseDto;
-import com.pragma.powerup.application.handler.IDishHandler;
 import com.pragma.powerup.application.handler.IOrderHandler;
-import com.pragma.powerup.application.mapper.IDishRequestMapper;
-import com.pragma.powerup.application.mapper.IDishResponseMapper;
 import com.pragma.powerup.application.mapper.IOrderRequestMapper;
 import com.pragma.powerup.application.mapper.IOrderResponseMapper;
-import com.pragma.powerup.domain.api.IDishServicePort;
 import com.pragma.powerup.domain.api.IOrderServicePort;
-import com.pragma.powerup.domain.model.DishModel;
 import com.pragma.powerup.domain.model.OrderModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

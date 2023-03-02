@@ -9,5 +9,7 @@ import java.util.List;
 public interface IOrderPersistencePort {
     void saveOrder(OrderModel orderModel);
 
+    List<OrderModel> findByStatus(String status);
+
 
 }

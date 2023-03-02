@@ -3,6 +3,8 @@ import com.pragma.powerup.domain.api.IOrderServicePort;
 import com.pragma.powerup.domain.model.OrderModel;
 import com.pragma.powerup.domain.spi.IOrderPersistencePort;
 
+import java.util.List;
+
 public class OrderUseCase implements IOrderServicePort {
     private final IOrderPersistencePort persistencePort;
 
@@ -13,5 +15,10 @@ public class OrderUseCase implements IOrderServicePort {
     @Override
     public void saveOrder(OrderModel orderModel) {
         persistencePort.saveOrder(orderModel);
+    }
+
+    @Override
+    public List<OrderModel> findByStatus(String status) {
+        return persistencePort.findByStatus(status);
     }
 }

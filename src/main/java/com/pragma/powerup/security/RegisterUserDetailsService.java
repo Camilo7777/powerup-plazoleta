@@ -2,7 +2,6 @@ package com.pragma.powerup.security;
 
 import com.pragma.powerup.application.dto.request.UserRequestDto;
 import com.pragma.powerup.infrastructure.feign.UserFeignClient;
-
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,18 +27,21 @@ public class RegisterUserDetailsService implements UserDetailsService {
         if (userRequestDto == null) {
             throw new UsernameNotFoundException("Username Not Found");
         }
-        String rol;
-        if (userRequestDto.getRoleId() == 1){
-            rol = "ADMIN";
-        }else if (userRequestDto.getRoleId() == 2){
-            rol = "OWNER";
-        }else if (userRequestDto.getRoleId() == 3){
-            rol = "EMPLOYEE";
-        }else{
-            rol = "CLIENT";
-        }
             Set<GrantedAuthority> authorities = new HashSet<>();
-            authorities.add(new SimpleGrantedAuthority(rol));
+            authorities.add(new SimpleGrantedAuthority(verifyRole(userRequestDto.getRoleId())));
             return new User(userRequestDto.getEmail(), userRequestDto.getPassword(), authorities);
+        }
+
+    private String verifyRole(Long id) {
+        String rol;
+        if (id == 1) {
+            return "ADMIN";
+        } else if (id == 2) {
+            return "OWNER";
+        } else if (id == 3) {
+            return "EMPLOYEE";
+        } else {
+            return "CLIENT";
+        }
     }
 }

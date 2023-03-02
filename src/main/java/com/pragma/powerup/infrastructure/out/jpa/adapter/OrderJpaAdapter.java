@@ -7,6 +7,8 @@ import com.pragma.powerup.infrastructure.out.jpa.mapper.IOrderEntityMapper;
 import com.pragma.powerup.infrastructure.out.jpa.repository.IOrderRepository;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 public class OrderJpaAdapter implements IOrderPersistencePort {
@@ -17,5 +19,10 @@ public class OrderJpaAdapter implements IOrderPersistencePort {
     public void saveOrder(OrderModel orderModel) {
 
         orderRepository.save(orderEntityMapper.toEntity(orderModel));
+    }
+
+    @Override
+    public List<OrderModel> findByStatus(String status) {
+        return orderEntityMapper.tolistModel(orderRepository.findByStatus(status));
     }
 }

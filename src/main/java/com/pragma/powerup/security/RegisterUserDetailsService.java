@@ -17,10 +17,7 @@ import java.util.Set;
 @Service
 @AllArgsConstructor
 public class RegisterUserDetailsService implements UserDetailsService {
-
     private final UserFeignClient userFeignClient;
-
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserRequestDto userRequestDto = userFeignClient.getByEmail(username);
@@ -31,7 +28,6 @@ public class RegisterUserDetailsService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(verifyRole(userRequestDto.getRoleId())));
             return new User(userRequestDto.getEmail(), userRequestDto.getPassword(), authorities);
         }
-
     private String verifyRole(Long id) {
         String rol;
         if (id == 1) {

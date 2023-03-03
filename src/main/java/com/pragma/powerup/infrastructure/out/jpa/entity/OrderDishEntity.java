@@ -18,11 +18,9 @@ public class OrderDishEntity {
     @Column(name = "id_order_dish")
     private Long idOrderDish;
     private Long quantity;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_order")
-    private OrderEntity orderEntity;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_dish")
-    private DishEntity dishEntity;
+
+    private Long idOrder;
+
+    private Long idDish;
 
 }

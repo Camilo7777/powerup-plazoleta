@@ -26,7 +26,7 @@ public class OrderModel {
 
     private Long idRestaurant;
 
-    private List<OrderDishEntity> orderDishEntities;
+    private List<OrderDishEntity> orderDishEntityList;
 
 
 }

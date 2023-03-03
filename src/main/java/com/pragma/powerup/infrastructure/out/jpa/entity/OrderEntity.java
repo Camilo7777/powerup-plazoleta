@@ -1,5 +1,6 @@
 package com.pragma.powerup.infrastructure.out.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,6 @@ import java.util.List;
 @Setter
 @Table(name = "orders")
 public class OrderEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id_order")
     private Long idOrder;
@@ -28,6 +28,8 @@ public class OrderEntity {
     private Long idChef;
     @Column(name = "id_restaurant")
     private Long idRestaurant;
-    @OneToMany(fetch =FetchType.LAZY,mappedBy = "orderEntity",cascade = CascadeType.ALL)
-    private List<OrderDishEntity> orderDishEntities;
+
+    @OneToMany(mappedBy = "idOrder")
+    private List<OrderDishEntity> orderDishEntityList;
+
 }

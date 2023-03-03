@@ -1,12 +1,16 @@
 package com.pragma.powerup.domain.usecase;
 import com.pragma.powerup.domain.api.IOrderServicePort;
 import com.pragma.powerup.domain.model.OrderModel;
+import com.pragma.powerup.domain.spi.IOrderDishPersistencePort;
 import com.pragma.powerup.domain.spi.IOrderPersistencePort;
 
 import java.util.List;
 
 public class OrderUseCase implements IOrderServicePort {
     private final IOrderPersistencePort persistencePort;
+
+
+    private  IOrderDishPersistencePort orderDishPersistencePort;
 
     public OrderUseCase(IOrderPersistencePort persistencePort) {
         this.persistencePort = persistencePort;

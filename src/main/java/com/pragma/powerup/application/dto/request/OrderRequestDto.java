@@ -28,7 +28,7 @@ public class OrderRequestDto {
 
     private Long idRestaurant;
 
-    private List<OrderDishEntity> orderDishEntities;
+    private List<OrderDishEntity> orderDishEntityList;
 
 
 }
